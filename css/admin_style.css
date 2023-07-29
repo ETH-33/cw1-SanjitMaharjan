@@ -1,0 +1,38 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+/* admin_login */
+
+
+
+
+
+
+
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    font-size: 1.2em;
+}
+.header a{
+    text-decoration: none;
+    color: white;
+    padding: 3px 10px;
+}
+.navbar ul{
+    display: flex;
+    list-style-type: none;
+    
+}
+.name {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+span {
+    color: aqua;
+}
