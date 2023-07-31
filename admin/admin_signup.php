@@ -3,22 +3,14 @@ include 'admin_nav.php';
 include 'admin_connection.php';
 
 
-// Start the session
+
 require_once('start_session.php');
 
-// Retrieve session data
-// if (isset($_SESSION['uname'])) {
-//     $username = $_SESSION['uname'];
-//     echo "Welcome, $username!";
-// } else {
-//     echo "You are not logged in.";
-//     header('Location: admin_login.php');
-// }
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    // Redirect the user to the login page if not logged in
+    
     header('Location: admin_login.php');
-    exit(); // Important: Always exit after a redirect
+    exit(); 
   }
 
 
@@ -29,7 +21,7 @@ if (isset($_POST['signup'])) {
     $password = $_POST['password'];
     $cpassword = $_POST['cpassword'];
 
-    // Check if the username already exists
+
     $udouble = "SELECT `name` FROM `staffs` WHERE name='$uname'";
     $result = mysqli_query($conn, $udouble);
 
@@ -38,13 +30,13 @@ if (isset($_POST['signup'])) {
             echo "Username '$uname' already exists";
         } else {
             if ($password == $cpassword) {
-                // Hash the password
+                
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                // Insert the new user into the database
+                
                 $stmt = "INSERT INTO `staffs`(`name`, `password`) VALUES ('$uname', '$hashedPassword')";
                 mysqli_query($conn, $stmt);
                     echo "Signup successful";
-                    // You can redirect the user to another page here
+                    
             } else {
                 echo "Passwords do not match";
             }

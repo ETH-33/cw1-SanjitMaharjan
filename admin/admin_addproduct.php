@@ -38,7 +38,9 @@ if (isset($_POST['Upload'])) {
 <html>
 <head>
   <title>Product Details Upload</title>
+  <script src="https://cdn.lordicon.com/bhenfmcm.js"></script> 
 </head>
+
 <body>
   <h2>Upload Product Details</h2>
   <form method="POST" action="" enctype="multipart/form-data">
@@ -56,21 +58,40 @@ if (isset($_POST['Upload'])) {
     
     <input type="submit" value="Upload" name="Upload">
   </form>
-<?php
+  <?php
 $display = "SELECT product_id, MIN(image_path) AS image_path FROM product_images GROUP BY product_id";
+$display2 = "SELECT * from `products`";
 $result = mysqli_query($conn, $display);
+$result2 = mysqli_query($conn, $display2);
 
-while ($row = mysqli_fetch_assoc($result)) {
-   $imagePath = '../Images/' . $row['image_path'];
-   $productId = $row['product_id'];
-   echo '<img src="' . $imagePath . '" alt="Image not found" width="300px" height="300px">';
+$products = array();
+while ($row2 = mysqli_fetch_assoc($result2)) {
+    $products[] = $row2;
 }
- mysqli_close($conn);
-  ?>
-  
-  <div>
-  
-  </div>
+
+$i = 0;
+while ($row = mysqli_fetch_assoc($result)) {
+    $imagePath = '../Images/' . $row['image_path'];
+    $productId = $row['product_id'];
+    echo '<div style="position: relative; display: inline-block; border: 2px solid red; margin: 35px;"> <div>';
+    echo '<a href="admin_editproduct.php?product_id=' . $productId . '"> <img src="' . $imagePath . '" alt="Image not found" width="300px" height="300px"></a>';
+    echo '<p style="position: absolute; top: 10px; left: 10px; padding: 5px;">Product ID:' . $productId . '<lord-icon
+        src="https://cdn.lordicon.com/pnhskdva.json"
+        trigger="hover"
+        colors="primary:red">
+        </lord-icon></p>';
+
+    if (isset($products[$i]['details'])) {
+        echo '</div>Rs.' . $products[$i]['price'] . '</div>';
+    } else {
+        echo '</div>Price not available</div>';
+    }
+
+    $i++;
+}
+
+mysqli_close($conn);
+?>
+
 </body>
 </html>
-

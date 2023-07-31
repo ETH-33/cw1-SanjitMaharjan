@@ -20,7 +20,7 @@ if(isset($_POST['Login'])){
             $_SESSION['logged_in'] = true;
             header('Location: admin_addproduct.php');
             exit();
-            // Perform further actions after successful login
+           
         } else {
             echo "Enter correct password";
         }
